@@ -5,13 +5,18 @@ import TheFooter from './components/TheFooter.vue'
 export default {
   components: {
     TheNavbar,
-    TheFooter,
+    TheFooter
   },
+  data() {
+    return {
+      tagline: 'Test String'
+    }
+  }
 }
 </script>
 
 <template>
-  <TheNavbar />
+  <TheNavbar :tagline="tagline" />
   <RouterView />
   <TheFooter />
 </template>

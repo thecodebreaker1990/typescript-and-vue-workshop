@@ -1,10 +1,15 @@
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue'
+import type { PropType } from 'vue'
+
+import type { Restaurant } from '@/types'
+
+export default defineComponent({
   props: {
     restaurant: {
-      type: Object,
-      required: true,
-    },
+      type: Object as PropType<Restaurant>,
+      required: true
+    }
   },
   emits: ['delete-restaurant'],
   computed: {
@@ -19,14 +24,14 @@ export default {
         default:
           return ''
       }
-    },
+    }
   },
   methods: {
     deleteRestaurant() {
       this.$emit('delete-restaurant', this.restaurant)
-    },
-  },
-}
+    }
+  }
+})
 </script>
 
 <template>

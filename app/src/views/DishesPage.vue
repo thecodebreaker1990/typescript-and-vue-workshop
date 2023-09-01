@@ -1,37 +1,46 @@
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import NewDishForm from '../components/NewDishForm.vue'
 import DishCard from '../components/DishCard.vue'
 import SideMenu from '../components/SideMenu.vue'
 
-export default {
+import type { Dish } from '../types'
+
+type DataShape = {
+  filterText: string
+  dishList: Dish[]
+  showNewForm: boolean
+}
+
+export default defineComponent({
   components: {
     NewDishForm,
     DishCard,
-    SideMenu,
+    SideMenu
   },
-  data: () => ({
+  data: (): DataShape => ({
     filterText: '',
     dishList: [
       {
         id: '7d9f3f17-964a-4e82-98e5-ecbba4d709a1',
         name: 'Ghost Pepper Poppers',
-        status: 'Want to Try',
+        status: 'Want to Try'
       },
       {
         id: '5c986b74-fa02-4a22-98f2-b1ff3559e85e',
         name: 'A Little More Chowder Now',
-        status: 'Recommended',
+        status: 'Recommended'
       },
       {
         id: 'c113411d-1589-414f-a283-daf7eedb631e',
         name: 'Full Laptop Battery',
-        status: 'Do Not Recommend',
-      },
+        status: 'Do Not Recommend'
+      }
     ],
-    showNewForm: false,
+    showNewForm: false
   }),
   computed: {
-    filteredDishList() {
+    filteredDishList(): Dish[] {
       return this.dishList.filter((dish) => {
         if (dish.name) {
           return dish.name.toLowerCase().includes(this.filterText.toLowerCase())
@@ -42,29 +51,29 @@ export default {
     },
     numberOfDishes() {
       return this.filteredDishList.length
-    },
+    }
   },
   methods: {
-    addDish(payload) {
+    addDish(payload: Dish) {
       this.dishList.push(payload)
       this.hideForm()
     },
-    deleteDish(payload) {
+    deleteDish(payload: Dish) {
       this.dishList = this.dishList.filter((dish) => {
         return dish.id !== payload.id
       })
     },
     hideForm() {
       this.showNewForm = false
-    },
+    }
   },
   mounted() {
     const route = this.$route
     if (route.query.new) {
       this.showNewForm = true
     }
-  },
-}
+  }
+})
 </script>
 
 <template>
